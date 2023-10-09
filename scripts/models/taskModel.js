@@ -8,5 +8,11 @@ class Task{
         this.date = date;
         this.url = url;
         this.pr = pr;
+        this.markForDelete = false;
+    }
+
+    toggle(){
+
+        this.markForDelete = !this.markForDelete;
     }
 }

@@ -6,13 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager App</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <script src="./scripts/models/taskModel.js"></script>
     <script src="./scripts/models/taskOperations.js"></script>
     <script src="./scripts/controllers/task.js"></script>
-    
+
 </head>
 
 <body>
@@ -37,7 +40,7 @@
 
         <div class="form-group">
             <label for="">Date</label>
-            <input id="date" type="date"class="form-control">
+            <input id="date" type="date" class="form-control">
         </div>
 
         <div class="form-group">
@@ -66,8 +69,8 @@
 
         <div>
             <h2>Total Records <span id="total-rec">0</span></h2>
-            <h2>Marked Records 0</h2>
-            <h2>Unmarked Records 0</h2>
+            <h2>Marked Records <span id="marked-rec">0</span></h2>
+            <h2>Unmarked Records <span id="unmarked-rec">0</span></h2>
         </div>
 
         <div>
@@ -85,7 +88,7 @@
                 </thead>
 
                 <tbody id="tasks">
-                    
+
                 </tbody>
             </table>
         </div>
