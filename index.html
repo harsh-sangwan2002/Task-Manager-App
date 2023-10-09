@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager App</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <script src="./scripts/models/taskModel.js"></script>
+    <script src="./scripts/models/taskOperations.js"></script>
+    <script src="./scripts/controllers/task.js"></script>
+    
+</head>
+
+<body>
+
+    <div class="container">
+        <h1 class="text-center alert alert-success">Task Manager App</h1>
+
+        <div class="form-group">
+            <label for="">Id</label>
+            <input id="id" type="text" placeholder="Type ID here" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="">Name</label>
+            <input id="name" type="text" placeholder="Type Name here" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="">Description</label>
+            <textarea id="desc" cols="30" rows="10" class="form-control" placeholder="Type description here"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="">Date</label>
+            <input id="date" type="date"class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="">URL</label>
+            <input id="url" type="url" placeholder="Type image url here" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="">Priority</label>
+            <span>0</span>
+            <input id="pr" type="range" class="form-range">
+            <p>10</p>
+        </div>
+
+        <div>
+            <button id="add" class="btn btn-primary">Add</button>
+            <button id="delete" class="btn btn-danger">Delete</button>
+            <button class="btn btn-info">Search</button>
+            <button class="btn btn-secondary">Update</button>
+            <button class="btn btn-warning">Sort</button>
+            <button class="btn btn-success">Save</button>
+            <button class="btn btn-dark">Load</button>
+            <button class="btn btn-success">Load From Server</button>
+            <button class="btn btn-danger">Clear All</button>
+        </div>
+
+        <div>
+            <h2>Total Records <span id="total-rec">0</span></h2>
+            <h2>Marked Records 0</h2>
+            <h2>Unmarked Records 0</h2>
+        </div>
+
+        <div>
+            <table class="table table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>URL</th>
+                        <th>Priority</th>
+                        <th>Operations</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tasks">
+                    
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
