@@ -1,12 +1,18 @@
 const taskOperations = {
 
     tasks: [],
+    isAsc: true,
     getTotalTasks() {
 
         return this.tasks.length;
     },
     getAllTasks() {
 
+        return this.tasks;
+    },
+    convertObjectIntoTaskObject(tasks) {
+
+        this.tasks = tasks.map(task => new Task(task.id, task.name, task.desc, task.date, task.url, task.pr));
         return this.tasks;
     },
     add(task) {
@@ -38,6 +44,19 @@ const taskOperations = {
     },
     serach() { },
     update() { },
-    sort() { },
+    sort() {
+
+        if (this.isAsc) {
+
+            this.isAsc = !this.isAsc;
+            return this.tasks.sort((first, second) => first.name.localeCompare(second.name));
+        }
+
+        else {
+
+            this.isAsc = !this.isAsc;
+            return this.tasks.sort((second, first) => first.name.localeCompare(second.name));
+        }
+    },
 
 }

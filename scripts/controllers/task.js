@@ -2,6 +2,8 @@
 // Controller doing DOM input, output
 window.addEventListener("load", init);
 
+let taskObject;
+const fields = ["id", "name", "desc", "date", "url", "pr"];
 function init() {
 
     countUpdate();
@@ -12,6 +14,48 @@ function bindEvents() {
 
     document.querySelector('#add').addEventListener("click", addTask);
     document.querySelector('#delete').addEventListener("click", deleteTasks);
+    document.querySelector('#update').addEventListener("click", updateTask);
+    document.querySelector('#sort').addEventListener("click", sortTask);
+    document.querySelector('#save').addEventListener("click", saveTask);
+    document.querySelector('#load').addEventListener("click", loadTask);
+    document.querySelector('#clear').addEventListener("click", clearTask);
+    document.querySelector('#pr').addEventListener("click", updatePriority);
+}
+
+function updatePriority(){
+
+    document.querySelector("#current-pr").innerText = this.value;
+}
+
+function saveTask() {
+
+    if (window.localStorage) {
+
+        localStorage.tasks = JSON.stringify(taskOperations.getAllTasks());
+        alert("Saved");
+    }
+
+    else {
+
+        alert("Cannot save tasks!");
+    }
+}
+
+function loadTask() {
+
+    if (window.localStorage && window.localStorage.tasks) {
+
+        let tasks = JSON.parse(localStorage.tasks);
+        taskOperations.convertObjectIntoTaskObject(tasks);
+
+        countUpdate();
+        printTasks();
+    }
+
+    else {
+
+        alert("Some error occurred!");
+    }
 }
 
 function countUpdate() {
@@ -24,7 +68,36 @@ function countUpdate() {
     document.querySelector('#unmarked-rec').innerText = total - mark;
 }
 
-function deleteTasks(){
+function sortTask() {
+
+    taskOperations.sort();
+    printTasks();
+}
+
+function clearTask() {
+
+    for (let key of fields) {
+
+        document.querySelector(`#${key}`).value = '';
+    }
+
+    document.querySelector("#name").focus();
+}
+
+function updateTask() {
+
+    for (let key in taskObject) {
+
+        if (key === 'markForDelete')
+            continue;
+
+        taskObject[key] = document.querySelector(`#${key}`).value;
+    }
+
+    printTasks();
+}
+
+function deleteTasks() {
 
     taskOperations.remove();
     countUpdate();
@@ -33,7 +106,6 @@ function deleteTasks(){
 
 function addTask() {
 
-    const fields = ["id", "name", "desc", "date", "url", "pr"];
     const task = {};
 
     for (let field of fields) {
@@ -57,6 +129,17 @@ function createIcon(className, fn, taskid) {
 
 function edit() {
 
+    let id = this.getAttribute("task-id");
+    taskObject = taskOperations.searchById(id);
+
+    for (let key in taskObject) {
+
+        if (key === 'markForDelete')
+            continue;
+
+        document.querySelector(`#${key}`).value = taskObject[key];
+    }
+
 }
 
 function markForDelete() {
@@ -71,11 +154,11 @@ function markForDelete() {
     countUpdate();
 }
 
-function printTasks(){
+function printTasks() {
 
     document.querySelector('#tasks').innerHTML = ``;
 
-    let allTasks = taskOperations.getAllTasks(); 
+    let allTasks = taskOperations.getAllTasks();
     allTasks.forEach(printTask);
 }
 
@@ -87,9 +170,9 @@ function printTask(task) {
 
     for (let key in task) {
 
-        if(key==='markForDelete')
-        continue;
-    
+        if (key === 'markForDelete')
+            continue;
+
         tr.insertCell(idx).innerText = task[key];
         idx++;
     }
