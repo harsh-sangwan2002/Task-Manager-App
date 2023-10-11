@@ -4,11 +4,17 @@ window.addEventListener("load", init);
 
 let taskObject;
 const fields = ["id", "name", "desc", "date", "url", "pr"];
+let incNumber;
+
 function init() {
 
     countUpdate();
     bindEvents();
+    incNumber = autoInc();
+    printId();
 }
+
+const printId = () => document.querySelector("#id").innerText = incNumber.next().value;
 
 function bindEvents() {
 
@@ -18,11 +24,31 @@ function bindEvents() {
     document.querySelector('#sort').addEventListener("click", sortTask);
     document.querySelector('#save').addEventListener("click", saveTask);
     document.querySelector('#load').addEventListener("click", loadTask);
+    document.querySelector("#loadFromServer").addEventListener("click", loadFromServer);
     document.querySelector('#clear').addEventListener("click", clearTask);
     document.querySelector('#pr').addEventListener("click", updatePriority);
 }
 
-function updatePriority(){
+function loadFromServer() {
+
+    const promise = doAjax();
+    promise.then(res => {
+        res.json().then(obj => {
+            const taskList = obj["task"];
+
+            taskOperations.convertObjectIntoTaskObject(taskList);
+            printTasks();
+            countUpdate();
+
+        }).catch(err => {
+            console.log(err);
+        })
+    }).catch(err => {
+        console.log(err);
+    })
+}
+
+function updatePriority() {
 
     document.querySelector("#current-pr").innerText = this.value;
 }
@@ -110,12 +136,19 @@ function addTask() {
 
     for (let field of fields) {
 
+        if (field === "id") {
+            task[field] = document.querySelector(`#${field}`).innerText;
+            continue;
+        }
+
         task[field] = document.querySelector(`#${field}`).value;
     }
 
     taskOperations.add(task);
     printTask(task);
     countUpdate();
+    clearTask();
+    printId(); 
 }
 
 function createIcon(className, fn, taskid) {
@@ -136,6 +169,9 @@ function edit() {
 
         if (key === 'markForDelete')
             continue;
+
+        if(key==='id')
+        document.querySelector(`#${key}`).innerText = taskObject[key];
 
         document.querySelector(`#${key}`).value = taskObject[key];
     }
