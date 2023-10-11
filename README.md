@@ -6,7 +6,7 @@
 
 A quick guide to my Project ->
 
-<img src ="/image.webp">
+<img src ="/img.webp">
 
 ## Tools Used
 
@@ -38,11 +38,3 @@ Click on
 Open With Live Server
 ``` 
 to run the website
-
-## Demo Video
-
-- [Link](https://app.gemoo.com/share/home?codeId=Ml3Rd9e4J7B2X)
-
-
-
-https://github.com/harsh-sangwan2003/Jira-Ticket-Management/assets/84121947/d78bee34-ca77-4745-85c2-3c2fbebe13c0.mp4
